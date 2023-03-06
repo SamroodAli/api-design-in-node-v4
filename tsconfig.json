@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "removeComments": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "lib": ["ESNext"],
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
