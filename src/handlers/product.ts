@@ -58,6 +58,7 @@ export const createProduct: Handler = async (req, res) => {
   res.json({ data: product });
 };
 
+// update one
 export const updateProduct: Handler = async (req, res) => {
   const updated = await prisma.product.update({
     where: {
@@ -81,6 +82,7 @@ export const updateProduct: Handler = async (req, res) => {
   res.json({ data: updated });
 };
 
+// delete one
 export const deleteProduct: Handler = async (req, res) => {
   const deletedProduct = await prisma.product.delete({
     where: {
