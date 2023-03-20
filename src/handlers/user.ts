@@ -40,6 +40,12 @@ export const signIn: Handler = async (req, res) => {
     },
   });
 
+  if (!user) {
+    res.status(404);
+    res.json({ message: "invalid username/password" });
+    return;
+  }
+
   const isValid = await comparePassword(payload.password, user.password);
 
   if (!isValid) {
@@ -49,7 +55,7 @@ export const signIn: Handler = async (req, res) => {
     return;
   }
 
-  const token = await createJWT(user);
+  const token = createJWT(user);
 
   res.status(200);
 

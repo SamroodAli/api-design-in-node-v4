@@ -32,6 +32,11 @@ export const getOneProduct: Handler = async (req, res) => {
     },
   });
 
+  if (!product) {
+    res.status(404);
+    res.json({ message: "product not found" });
+  }
+
   res.status(200);
   res.json({ data: product });
 };
@@ -66,6 +71,11 @@ export const updateProduct: Handler = async (req, res) => {
     },
   });
 
+  if (!updateProduct) {
+    res.status(404);
+    res.json({ message: "product not found" });
+  }
+
   res.status(200);
 
   res.json({ data: updated });
@@ -80,6 +90,11 @@ export const deleteProduct: Handler = async (req, res) => {
       },
     },
   });
+
+  if (!deleteProduct) {
+    res.status(404);
+    res.json({ message: "product not found" });
+  }
 
   res.status(200);
   res.json({ data: deletedProduct });
