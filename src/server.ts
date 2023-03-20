@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import { protect } from "./modules/auth";
+import { createNewUser, signIn } from "./handlers/user";
 
 dotenv.config();
 
@@ -18,6 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", protect, router);
+
+app.post("/sign-up", createNewUser);
+app.post("/sign-in", signIn);
 
 app.get("/status", (_, res) => {
   res.status(200);
