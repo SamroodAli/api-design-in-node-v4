@@ -5,6 +5,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import { protect } from "./modules/auth";
 import { createNewUser, signIn } from "./handlers/user";
+import { errorHandler } from "./handlers/error";
 
 dotenv.config();
 
@@ -23,9 +24,11 @@ app.use("/api", protect, router);
 app.post("/sign-up", createNewUser);
 app.post("/sign-in", signIn);
 
-app.get("/status", (_, res) => {
+app.get(["/", "/status"], (_, res) => {
   res.status(200);
   res.json({ message: "app design in node v4 is running" });
 });
+
+app.use(errorHandler);
 
 export default app;
