@@ -23,7 +23,7 @@ app.post("/sign-in", signIn);
 
 app.get(["/", "/status"], (_, res) => {
   res.status(200);
-  res.json({ message: "app design in node v4 is running" });
+  res.json({ message: "api design in node v4 is running" });
 });
 
 app.use(errorHandler);
