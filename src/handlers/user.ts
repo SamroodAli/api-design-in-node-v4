@@ -2,7 +2,7 @@ import { Handler } from "express";
 import { prisma } from "../db";
 import { comparePassword, createJWT, hashPassword } from "../modules/auth";
 
-export const createNewUser: Handler = async (req, res) => {
+export const createNewUser: Handler = async (req, res, next) => {
   const payload = req.body;
 
   {
@@ -19,16 +19,21 @@ export const createNewUser: Handler = async (req, res) => {
     }
   }
 
-  const user = await prisma.user.create({
-    data: {
-      username: payload.username,
-      password: await hashPassword(payload.password),
-    },
-  });
+  try {
+    const user = await prisma.user.create({
+      data: {
+        username: payload.username,
+        password: await hashPassword(payload.password),
+      },
+    });
 
-  const token = createJWT(user);
+    const token = createJWT(user);
+    res.json({ token });
+  } catch (err) {
+    err.type = "input"; // refactor this to an error service, this is just an example
 
-  res.json({ token });
+    next(err);
+  }
 };
 
 export const signIn: Handler = async (req, res) => {

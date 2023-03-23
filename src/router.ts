@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { ErrorRequestHandler, Router } from "express";
 import { body } from "express-validator";
 import {
   createProduct,
@@ -95,5 +95,15 @@ router.put(
 );
 
 router.delete("/update-point/:id", (req, res) => {});
+
+// you can have router level error handling
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.error(err);
+
+  // return res.json({ message: "oops! router" }); //either handle it here
+  next(err); // bubble it up to the next error handler ( typically the app level error handling)
+};
+
+router.use(errorHandler);
 
 export default router;

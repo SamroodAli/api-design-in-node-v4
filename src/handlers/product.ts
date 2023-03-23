@@ -42,20 +42,24 @@ export const getOneProduct: Handler = async (req, res) => {
 };
 
 // create a product
-export const createProduct: Handler = async (req, res) => {
-  const product = await prisma.product.create({
-    data: {
-      name: req.body.name,
-      belongsTo: {
-        connect: {
-          id: req.user.id,
+export const createProduct: Handler = async (req, res, next) => {
+  try {
+    const product = await prisma.product.create({
+      data: {
+        name: req.body.name,
+        belongsTo: {
+          connect: {
+            id: req.user.id,
+          },
         },
       },
-    },
-  });
+    });
 
-  res.status(201);
-  res.json({ data: product });
+    res.status(201);
+    res.json({ data: product });
+  } catch (err) {
+    next(err);
+  }
 };
 
 // update one
