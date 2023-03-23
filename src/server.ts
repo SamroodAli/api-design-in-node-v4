@@ -2,12 +2,9 @@ import express from "express";
 import router from "./router";
 import morgan from "morgan";
 import cors from "cors";
-import * as dotenv from "dotenv";
 import { protect } from "./modules/auth";
 import { createNewUser, signIn } from "./handlers/user";
 import { errorHandler } from "./handlers/error";
-
-dotenv.config();
 
 const app = express();
 
